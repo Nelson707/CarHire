@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'index']);
 
 Route::middleware([
     'auth:sanctum',
@@ -29,3 +27,19 @@ Route::middleware([
 });
 
 Route::get('/redirect', [HomeController::class, 'redirect']);
+
+
+
+
+
+Route::get('/about', [HomeController::class, 'about']);
+
+Route::get('/services', [HomeController::class, 'services']);
+
+Route::get('/pricing', [HomeController::class, 'pricing']);
+
+Route::get('/cars', [HomeController::class, 'cars']);
+
+Route::get('/blog', [HomeController::class, 'blog']);
+
+Route::get('/contact', [HomeController::class, 'contact']);
