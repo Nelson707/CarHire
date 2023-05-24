@@ -41,36 +41,54 @@
         <div class="row no-gutters">
             <div class="col-md-12	featured-top">
                 <div class="row no-gutters">
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                            <button type="button" class="close" style="float: right;" data-dismiss="alert" aria-hidden="true">X</button>
+                        </div>
+                    @endif
                     <div class="col-md-4 d-flex align-items-center">
-                        <form action="#" class="request-form ftco-animate bg-primary">
+                        <form action="{{url('book_car')}}" class="request-form ftco-animate bg-primary" method="post">
+                            @csrf
                             <h2>Make your trip</h2>
                             <div class="form-group">
                                 <label for="" class="label">Pick-up location</label>
-                                <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                                <input type="text" class="form-control" name="pickUpLocation" placeholder="City, Airport, Station, etc">
                             </div>
+
                             <div class="form-group">
                                 <label for="" class="label">Drop-off location</label>
-                                <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                                <input type="text" class="form-control" name="dropOffLocation" placeholder="City, Airport, Station, etc">
                             </div>
+
                             <div class="d-flex">
                                 <div class="form-group mr-2">
                                     <label for="" class="label">Pick-up date</label>
-                                    <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
+                                    <input type="text" class="form-control" name="pickUpDate" id="book_pick_date" placeholder="Date">
                                 </div>
                                 <div class="form-group ml-2">
                                     <label for="" class="label">Drop-off date</label>
-                                    <input type="text" class="form-control" id="book_off_date" placeholder="Date">
+                                    <input type="text" class="form-control" name="dropOffDate" id="book_off_date" placeholder="Date">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="" class="label">Pick-up time</label>
-                                <input type="text" class="form-control" id="time_pick" placeholder="Time">
+                                <input type="text" class="form-control" name="pickUpTime" id="time_pick" placeholder="Time">
                             </div>
+
                             <div class="form-group">
-                                <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
+                                <label for="" class="label">Passengers</label>
+                                <input type="number" class="form-control" name="passengers" id="" placeholder="Passengers">
                             </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Book A Car Now" class="btn btn-secondary py-3 px-4">
+                            </div>
+
                         </form>
                     </div>
+
                     <div class="col-md-8 d-flex align-items-center">
                         <div class="services-wrap rounded-right w-100">
                             <h3 class="heading-section mb-4">Better Way to Rent Your Perfect Cars</h3>
@@ -100,7 +118,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
+                            <p><a href="{{url('/cars')}}" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
                         </div>
                     </div>
                 </div>
@@ -194,7 +212,6 @@
 
                     <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
                     <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                    <p><a href="#" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
                 </div>
             </div>
         </div>
@@ -263,78 +280,6 @@
 </section>
 
 
-<section class="ftco-section testimony-section bg-light">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <span class="subheading">Testimonial</span>
-                <h2 class="mb-3">Happy Clients</h2>
-            </div>
-        </div>
-        <div class="row ftco-animate">
-            <div class="col-md-12">
-                <div class="carousel-testimony owl-carousel ftco-owl">
-                    <div class="item">
-                        <div class="testimony-wrap rounded text-center py-4 pb-5">
-                            <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)">
-                            </div>
-                            <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">Marketing Manager</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap rounded text-center py-4 pb-5">
-                            <div class="user-img mb-2" style="background-image: url(images/person_2.jpg)">
-                            </div>
-                            <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">Interface Designer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap rounded text-center py-4 pb-5">
-                            <div class="user-img mb-2" style="background-image: url(images/person_3.jpg)">
-                            </div>
-                            <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">UI Designer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap rounded text-center py-4 pb-5">
-                            <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)">
-                            </div>
-                            <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">Web Developer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap rounded text-center py-4 pb-5">
-                            <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)">
-                            </div>
-                            <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">System Analyst</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-5">
@@ -393,45 +338,6 @@
     </div>
 </section>
 
-<section class="ftco-counter ftco-section img bg-light" id="section-counter">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-                <div class="block-18">
-                    <div class="text text-border d-flex align-items-center">
-                        <strong class="number" data-number="60">0</strong>
-                        <span>Year <br>Experienced</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-                <div class="block-18">
-                    <div class="text text-border d-flex align-items-center">
-                        <strong class="number" data-number="1090">0</strong>
-                        <span>Total <br>Cars</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-                <div class="block-18">
-                    <div class="text text-border d-flex align-items-center">
-                        <strong class="number" data-number="2590">0</strong>
-                        <span>Happy <br>Customers</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
-                <div class="block-18">
-                    <div class="text d-flex align-items-center">
-                        <strong class="number" data-number="67">0</strong>
-                        <span>Total <br>Branches</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 @include('home.footer')
 

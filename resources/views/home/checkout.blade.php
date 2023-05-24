@@ -7,6 +7,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     @include('home.css')
 </head>
 <body>
@@ -20,45 +22,38 @@
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
             <div class="col-md-9 ftco-animate pb-5">
                 <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-3 bread">Choose Your Car</h1>
+                <h1 class="mb-3 bread">Reserve Your Car</h1>
             </div>
         </div>
     </div>
 </section>
 
 
-<section class="ftco-section bg-light">
+
+<section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
-        <div class="row">
-            @foreach($car as $car)
-            <div class="col-md-4">
-                <div class="car-wrap rounded ftco-animate">
-                    <img src="car_images/{{ $car->image }}" class="img rounded d-flex align-items-end">
-                    <div class="text">
-                        <h2 class="mb-0"><a href="car-single.html">{{ $car->name }}</a></h2>
-                        <div class="d-flex mb-3">
-                            <span class="cat">{{ $car->type }}</span>
-                            <p class="price ml-auto">Ksh. {{ $car->daily }}<span>/day</span></p>
-                        </div>
-                        <p class="d-flex mb-0 d-block"><a href="{{url('/car_details', $car->id)}}" class="btn btn-secondary py-2 ml-1">View Details</a></p>
-                    </div>
+        <h3 class="h3 mb-3">Proceed To Checkout</h3>
+        <div style="display:flex;">
+            <div class="mr-3">
+                <button type="button" class="btn btn-info text-dark" data-bs-toggle="collapse" data-bs-target="#linux">Cash Payment</button>
+                <div id="linux" class="collapse">
+                    <h3>Cash payments are to be made upon receiving the car.</h3>
                 </div>
             </div>
-            @endforeach
-        </div>
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
-                    </ul>
+
+            <div>
+                <button type="button" class="btn btn-success text-dark" data-bs-toggle="collapse" data-bs-target="#mpesa">Mpesa Payment</button>
+                <div id="mpesa" class="collapse">
+                    <h3>Make your payment via: </h3>
+                    <h3>MPESA, PAYBILL NO. 1032789.</h3>
+                    <h3>ACCOUNT NO: YOUR NAMES</h3>
+                    <h3>AMOUNT: AS PROVIDED</h3>
+                    <h3>* Check your email for booking details.</h3>
                 </div>
+            </div>
+
+            <div class="ml-3">
+                <a href="#" class="btn btn-warning">Pay with card</a>
             </div>
         </div>
     </div>

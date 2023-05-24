@@ -8,24 +8,26 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{{url('/categories')}}">
+            <a class="nav-link" href="{{url('/car_types')}}">
                 <i class="icon-grid-2 menu-icon"></i>
-                <span class="menu-title">categories</span>
+                <span class="menu-title">Car Types</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                 <i class="icon-columns menu-icon"></i>
-                <span class="menu-title">Form elements</span>
+                <span class="menu-title">Cars</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="form-elements">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/add_car')}}">Add Car</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/all_cars')}}">All Cars</a></li>
                 </ul>
             </div>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
                 <i class="icon-bar-graph menu-icon"></i>
