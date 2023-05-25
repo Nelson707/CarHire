@@ -68,3 +68,11 @@ Route::post('/book_car', [HomeController::class, 'book_car']);
 Route::get('/car_details/{id}', [HomeController::class, 'car_details']);
 
 Route::get('/reserve_car/{id}', [HomeController::class, 'reserve_car']);
+
+Route::post('/submit_reservation/{id}', [HomeController::class, 'submit_reservation']);
+
+Route::get('/checkout', [HomeController::class, 'checkout']);
+
+Route::get('/cash_payment', [HomeController::class, 'cash_payment']);
+
+Route::get('/show_reservations', [HomeController::class, 'show_reservations']);

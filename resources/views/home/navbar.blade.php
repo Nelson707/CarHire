@@ -14,6 +14,7 @@
                 <li class="nav-item"><a href="{{url('/cars')}}" class="nav-link">Cars</a></li>
                 <li class="nav-item"><a href="{{url('/blog')}}" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="{{url('/contact')}}" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="{{url('/show_reservations')}}" class="nav-link">Reservations</a></li>
             </ul>
             @if (Route::has('login'))
                 <ul class="navbar-nav ml-auto">

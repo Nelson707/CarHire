@@ -33,7 +33,8 @@
 <section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
         <p class="mb-3 mt-3 h3">Please Fill out the form below</p>
-        <form action="" method="post">
+        <form action="{{url('/submit_reservation', $car->id)}}" method="post">
+            @csrf
             <div class="form-group">
                 <label>Full Names :</label>
                 <input class="form-control" type="text" name="name" placeholder="Name" required>
@@ -66,8 +67,8 @@
             </div>
 
             <div class="form-group">
-                <label>Chauffer(Yes/No) :</label>
-                <input class="form-control" type="text" name="chauffer" placeholder="Yes/No" required>
+                <label>Chauffeur(Yes/No) :</label>
+                <input class="form-control" type="text" name="chauffeur" placeholder="Yes/No" required>
             </div>
 
             <div class="form-group">
