@@ -27,7 +27,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/redirect', [HomeController::class, 'redirect']);
+Route::get('/redirect', [HomeController::class, 'redirect'])->middleware('auth','verified');
 
 Route::get('/car_types', [AdminController::class, 'car_types']);
 
@@ -52,6 +52,18 @@ Route::get('/all_bookings', [AdminController::class, 'all_bookings']);
 Route::get('/reservation_orders', [AdminController::class, 'reservation_orders']);
 
 Route::get('/order_confirmation/{id}', [AdminController::class, 'order_confirmation']);
+
+Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf']);
+
+Route::get('/print_booking_pdf/{id}', [AdminController::class, 'print_booking_pdf']);
+
+Route::get('/send_email/{id}', [AdminController::class, 'send_email']);
+
+Route::post('/send_reservation_email/{id}', [AdminController::class, 'send_reservation_email']);
+
+Route::get('/send_book_email/{id}', [AdminController::class, 'send_book_email']);
+
+Route::post('/send_booking_email/{id}', [AdminController::class, 'send_booking_email']);
 
 
 

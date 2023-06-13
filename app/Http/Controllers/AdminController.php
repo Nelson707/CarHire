@@ -7,7 +7,10 @@ use App\Models\Car;
 use App\Models\CarType;
 use App\Models\Order;
 use App\Models\Reservations;
+use App\Notifications\SendEmailNotification;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
 {
@@ -135,5 +138,65 @@ class AdminController extends Controller
         $order->save();
 
         return redirect()->back();
+    }
+
+    public function print_pdf($id)
+    {
+        $order = order::find($id);
+        $pdf = PDF::loadView('admin.pdf', compact('order'));
+        return $pdf->download('order_details.pdf');
+    }
+
+    public function print_booking_pdf($id)
+    {
+        $book = bookings::find($id);
+        $pdf = PDF::loadView('admin.book_pdf', compact('book'));
+        return $pdf->download('order_details.pdf');
+    }
+
+    public function send_email($id)
+    {
+        $order = order::find($id);
+        return view('admin.reservation_email', compact('order'));
+    }
+
+    public function send_reservation_email(Request $request, $id)
+    {
+        $order = order::find($id);
+        $details = [
+            'greeting' => $request->greeting,
+            'firstLine' => $request->firstLine,
+            'body' => $request->body,
+            'button' => $request->button,
+            'url' => $request->url,
+            'lastLine' => $request->lastLine,
+        ];
+
+        Notification::send($order, new SendEmailNotification($details));
+
+        return redirect()->back()->with('message','Email sent successfully');
+    }
+
+    public function send_book_email($id)
+    {
+        $book = bookings::find($id);
+        return view('admin.booking_email', compact('book'));
+    }
+
+    public function send_booking_email(Request $request, $id)
+    {
+        $book = bookings::find($id);
+        $details = [
+            'greeting' => $request->greeting,
+            'firstLine' => $request->firstLine,
+            'body' => $request->body,
+            'button' => $request->button,
+            'url' => $request->url,
+            'lastLine' => $request->lastLine,
+        ];
+
+        Notification::send($book, new SendEmailNotification($details));
+
+        return redirect()->back()->with('message','Email sent successfully');
     }
 }

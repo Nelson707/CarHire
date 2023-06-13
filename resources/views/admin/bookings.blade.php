@@ -71,11 +71,11 @@
                                 <td>{{ $book->passengers }}</td>
 
                                 <td>
-                                    <a href="{{url('print_pdf', $book->id)}}" class="btn btn-info">Print PDF</a>
+                                    <a href="{{url('print_booking_pdf', $book->id)}}" class="btn btn-info">Print PDF</a>
                                 </td>
 
                                 <td>
-                                    <a href="{{url('send_email', $book->id)}}" class="btn btn-success">Send Email</a>
+                                    <a href="{{url('send_book_email', $book->id)}}" class="btn btn-success">Send Email</a>
                                 </td>
                             </tr>
 
