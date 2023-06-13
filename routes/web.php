@@ -47,6 +47,12 @@ Route::post('/update_car/{id}', [AdminController::class, 'update_car']);
 
 Route::get('/delete_car/{id}', [AdminController::class, 'delete_car']);
 
+Route::get('/all_bookings', [AdminController::class, 'all_bookings']);
+
+Route::get('/reservation_orders', [AdminController::class, 'reservation_orders']);
+
+Route::get('/order_confirmation/{id}', [AdminController::class, 'order_confirmation']);
+
 
 
 
@@ -54,8 +60,6 @@ Route::get('/delete_car/{id}', [AdminController::class, 'delete_car']);
 Route::get('/about', [HomeController::class, 'about']);
 
 Route::get('/services', [HomeController::class, 'services']);
-
-Route::get('/pricing', [HomeController::class, 'pricing']);
 
 Route::get('/cars', [HomeController::class, 'cars']);
 
@@ -76,3 +80,13 @@ Route::get('/checkout', [HomeController::class, 'checkout']);
 Route::get('/cash_payment', [HomeController::class, 'cash_payment']);
 
 Route::get('/show_reservations', [HomeController::class, 'show_reservations']);
+
+Route::get('/cancel_reservation_order/{id}', [HomeController::class, 'cancel_reservation_order']);
+
+Route::get('/show_bookings', [HomeController::class, 'show_bookings']);
+
+Route::get('/cancel_booking/{id}', [HomeController::class, 'cancel_booking']);
+
+Route::get('/stripe/{totalPrice}', [HomeController::class, 'stripe']);
+
+Route::post('stripe/{totalPrice}', [HomeController::class, 'stripePost'])->name('stripe.post');

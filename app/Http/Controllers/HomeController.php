@@ -9,6 +9,8 @@ use App\Models\Order;
 use App\Models\Reservations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
+use Stripe;
 
 class HomeController extends Controller
 {
@@ -38,11 +40,6 @@ class HomeController extends Controller
     public function services()
     {
         return view('home.services');
-    }
-
-    public function pricing()
-    {
-        return view('home.pricing');
     }
 
     public function cars()
@@ -85,7 +82,7 @@ class HomeController extends Controller
 
             $book->save();
 
-            return redirect()->back()->with('message','You have successfully booked your car, You will receive an email shortly with further instructions');
+            return redirect('showBookings')->with('message','You have successfully booked your car, You will receive an email shortly with further instructions');
         }
         else
         {
@@ -167,6 +164,37 @@ class HomeController extends Controller
         }
     }
 
+    public function cancel_reservation_order($id)
+    {
+        $order = Order::find($id);
+        $order->delete();
+
+        return redirect()->back()->with('message','Your Reservation Has been Successfully cancelled');
+    }
+
+    public function show_bookings()
+    {
+        if (Auth::id())
+        {
+            $user = Auth::user();
+            $user_id = $user->id;
+            $booking = Bookings::where('user_id','=',$user_id)->get();
+            return view('home.showBookings', compact('booking',));
+        }
+        else
+        {
+            return redirect('login');
+        }
+    }
+
+    public function cancel_booking($id)
+    {
+        $booking = Bookings::find($id);
+        $booking->delete();
+
+        return redirect()->back()->with('message','Your Booking Has been Successfully cancelled');
+    }
+
     public function cash_payment()
     {
 
@@ -199,5 +227,60 @@ class HomeController extends Controller
             $reservation->delete();
         }
         return redirect()->back()->with('message', 'We have received your order! Instructions will be sent shortly');
+    }
+
+    public function stripe($totalPrice)
+    {
+        return view('home.stripe',compact('totalPrice'));
+    }
+
+    public function stripePost(Request $request, $totalPrice)
+    {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        Stripe\Charge::create ([
+
+            "amount" => $totalPrice / 1,
+
+            "currency" => "usd",
+
+            "source" => $request->stripeToken,
+
+            "description" => "Test payment from itsolutionstuff.com."
+
+        ]);
+
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $data = Reservations::where('user_id','=',$userId)->get();
+        foreach ($data as $data)
+        {
+            $order = new Order;
+
+            $order->user_id = $data->user_id;
+            $order->name = $data->name;
+            $order->email = $data->email;
+            $order->phone = $data->phone;
+            $order->car_id = $data->car_id;
+            $order->car_name = $data->car_name;
+            $order->daily_price = $data->car_price;
+            $order->pick_up_date = $data->pick_up_date;
+            $order->drop_off_date = $data->drop_off_date;
+            $order->pick_up_time = $data->pick_up_time;
+            $order->chauffeur = $data->chauffeur;
+            $order->payment_status = 'Paid with card';
+            $order->delivery_status = 'Processing...';
+
+            $order->save();
+
+            $reservation_id = $data->id;
+            $reservation = Reservations::find($reservation_id);
+            $reservation->delete();
+        }
+
+        Session::flash('success', 'Payment successful!');
+
+        return back();
     }
 }

@@ -22,7 +22,7 @@
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
             <div class="col-md-9 ftco-animate pb-5">
                 <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-3 bread">Reserve Your Car</h1>
+                <h1 class="mb-3 bread">Your Reservations</h1>
             </div>
         </div>
     </div>
@@ -39,53 +39,40 @@
             </div>
         @endif
 
-        <h3 class="h3">Your Reservation Details</h3>
-        <?php $totalPrice = 0 ?>
-        @foreach($reservation as $reservation)
-            @if($reservation->user_id == Auth::user()->id)
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Car Name</th>
-                    <th>Daily</th>
-                    <th>Pick Up Date</th>
-                    <th>Drop off Date</th>
-                    <th>Pick Up Time</th>
-                    <th>Chauffeur</th>
-                    <th>Actions</th>
-                </tr>
-                <tr>
-                    <td>{{ $reservation->name }}</td>
-                    <td>{{ $reservation->email }}</td>
-                    <td>{{ $reservation->phone }}</td>
-                    <td>{{ $reservation->car_name }}</td>
-                    <td>{{ $reservation->car_price }}</td>
-                    <td>{{ $reservation->pick_up_date }}</td>
-                    <td>{{ $reservation->drop_off_date }}</td>
-                    <td>{{ $reservation->pick_up_time }}</td>
-                    <td>{{ $reservation->chauffeur }}</td>
-                    <td>
-                        <a href="{{url('/cancel_reservation', $reservation->id)}}" class="btn btn-warning">Cancel</a>
-                    </td>
-                </tr>
-            </table>
+        <h3 class="h3">Your Booking Details</h3>
+        @foreach($booking as $booking)
+            @if($booking->user_id == Auth::user()->id)
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Pick up location</th>
+                        <th>Drop off location</th>
+                        <th>Pick up date</th>
+                        <th>Drop off Date</th>
+                        <th>Pick Up Time</th>
+                        <th>Passengers</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>{{ $booking->name }}</td>
+                        <td>{{ $booking->email }}</td>
+                        <td>{{ $booking->phone }}</td>
+                        <td>{{ $booking->pick_up_location }}</td>
+                        <td>{{ $booking->drop_off_location }}</td>
+                        <td>{{ $booking->pick_up_date }}</td>
+                        <td>{{ $booking->drop_off_date }}</td>
+                        <td>{{ $booking->pick_up_time }}</td>
+                        <td>{{ $booking->passengers }}</td>
+                        <td>
+                            <a href="{{url('/cancel_booking', $booking->id)}}" onclick="return confirm('Are you sure you want to cancel this booking')" class="btn btn-warning">Cancel</a>
+                        </td>
+                    </tr>
+                </table>
             @endif
-            <?php $totalPrice = $reservation->car_price ?>
         @endforeach
 
-
-        <h3 class="h3 mb-3">Proceed To Checkout</h3>
-        <div>
-            <div class="mb-3">
-                <a href="{{url('cash_payment')}}" class="btn btn-info">Cash/Mpesa Payment</a>
-            </div>
-
-            <div class="mt-3">
-                <a href="{{url('stripe',$totalPrice)}}" class="btn btn-warning">Pay with card</a>
-            </div>
-        </div>
     </div>
 </section>
 

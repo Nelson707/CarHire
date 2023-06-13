@@ -32,6 +32,13 @@
 
 <section class="ftco-section ftco-no-pt bg-light">
     <div class="container">
+        @if(session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+                <button type="button" class="close" style="float: right;" data-dismiss="alert" aria-hidden="true">X</button>
+            </div>
+        @endif
+
         <h3 class="h3">Your Order Details</h3>
         @foreach($order as $order)
             @if($order->user_id == Auth::user()->id)
@@ -59,7 +66,7 @@
                         <td>{{ $order->pick_up_time }}</td>
                         <td>{{ $order->chauffeur }}</td>
                         <td>
-                            <a href="{{url('/cancel_order', $order->id)}}" class="btn btn-warning">Cancel</a>
+                            <a href="{{url('/cancel_reservation_order', $order->id)}}" onclick="return confirm('Are you sure you want to cancel this reservation')" class="btn btn-warning">Cancel</a>
                         </td>
                     </tr>
                 </table>

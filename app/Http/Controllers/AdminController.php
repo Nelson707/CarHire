@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookings;
 use App\Models\Car;
 use App\Models\CarType;
+use App\Models\Order;
+use App\Models\Reservations;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -107,5 +110,30 @@ class AdminController extends Controller
         $car = car::find($id);
         $car->delete();
         return redirect()->back()->with('message','Car deleted successfully');
+    }
+
+    public function all_bookings()
+    {
+        $book = Bookings::all();
+        return view('admin.bookings', compact('book'));
+    }
+
+    public function reservation_orders()
+    {
+        $order = Order::all();
+        return view('admin.reservations', compact('order'));
+    }
+
+    public function order_confirmation($id)
+    {
+        $order = order::find($id);
+
+        $order->delivery_status = "Confirmed";
+
+        $order->payment_status = "Payment Confirmed";
+
+        $order->save();
+
+        return redirect()->back();
     }
 }
