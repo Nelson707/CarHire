@@ -65,6 +65,13 @@ Route::get('/send_book_email/{id}', [AdminController::class, 'send_book_email'])
 
 Route::post('/send_booking_email/{id}', [AdminController::class, 'send_booking_email']);
 
+Route::get('/add_post', [AdminController::class, 'add_post']);
+
+
+Route::post('ckeditor/upload', [AdminController::class, 'upload'])->name('ckeditor.upload');
+
+Route::post('/create_post', [AdminController::class, 'create_post']);
+
 
 
 

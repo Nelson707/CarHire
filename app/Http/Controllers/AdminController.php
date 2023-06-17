@@ -6,6 +6,7 @@ use App\Models\Bookings;
 use App\Models\Car;
 use App\Models\CarType;
 use App\Models\Order;
+use App\Models\Post;
 use App\Models\Reservations;
 use App\Notifications\SendEmailNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -198,5 +199,58 @@ class AdminController extends Controller
         Notification::send($book, new SendEmailNotification($details));
 
         return redirect()->back()->with('message','Email sent successfully');
+    }
+
+    public function add_post()
+    {
+        return view('admin.addPost');
+    }
+
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+
+            $originName = $request->file('upload')->getClientOriginalName();
+
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+
+            $extension = $request->file('upload')->getClientOriginalExtension();
+
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+
+
+
+            $request->file('upload')->move(public_path('post_images'), $fileName);
+
+
+
+            $url = asset('post_images/' . $fileName);
+
+
+
+            return response()->json(['fileName' => $fileName, 'uploaded'=> 1, 'url' => $url]);
+
+        }
+    }
+
+    public function create_post(Request $request)
+    {
+        $post = new post;
+
+        $post->title = $request->title;
+        $post->details = $request->details;
+        $post->author = $request->author;
+        $post->tag = $request->tag;
+
+        $image = $request->image;
+
+        $imageName = time().'.'. $image->getClientOriginalExtension();
+        $request->image->move('post_images', $imageName);
+        $post->image = $imageName;
+
+        $post->save();
+
+        return redirect()->back()->with('message','Post create successfully');
+
     }
 }
