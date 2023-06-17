@@ -57,44 +57,42 @@
                     </div>
                 @endif
 
-                <h1 class="text-center">Add post</h1>
+                <h1 class="text-center">All Posts</h1>
 
-                <form action="{{ url('create_post') }}" method="post" enctype="multipart/form-data">
+                <table class="table-responsive table-bordered table-sm">
+                    <tr class="bg-info">
+                        <th class="text-dark">Title</th>
+                        <th class="text-dark">Details</th>
+                        <th class="text-dark">Author</th>
+                        <th class="text-dark">Tag</th>
+                        <th class="text-dark">image</th>
+                        <th class="text-dark">Created at</th>
+                        <th class="text-dark">Actions</th>
+                    </tr>
 
-                    @csrf
+                    @foreach($post as $post)
+                        <tr>
+                            <td>{{ $post->title }}</td>
+                            <td>{{ $post->details }}</td>
+                            <td>{{ $post->author }}</td>
+                            <td>{{ $post->tag }}</td>
+                            <td>
+                                <img src="/media/{{ $post->image }}" height="50" width="50">
+                            </td>
+                            <td>{{ $post->created_at }}</td>
+                            <td>
+                                <a href="{{ url('update_post',$post->id) }}" class="btn btn-primary mb-2">Edit</a>
+                                <a onclick="return confirm('Are you sure you want to delete this post?')" href="{{ url('delete_post',$post->id) }}" class="btn btn-danger">Delete</a>
+                                @if($post->tag == 'unpublished')
+                                <a onclick="return confirm('Are you sure you want to publish this post?')" href="{{url('publish_post', $post->id) }}" class="btn btn-info mt-2">Publish</a>
+                                @else
+                                    <a onclick="return confirm('Are you sure you want to unpublish this post?')" href="{{url('unpublish_post', $post->id) }}" class="btn btn-info mt-2">Unpublish</a>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
 
-                    <div class="mb-3">
-                        <label>Post title</label>
-                        <input class="form-control text-dark" type="text"  placeholder="Post Title..." name="title"  required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Post Details</label>
-                        <textarea class="form-control text-dark" id="#" rows="20" cols="30"  placeholder="Post Details..." name="details"  required></textarea>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label>Post Author</label>
-                        <input class="form-control text-dark" type="text" placeholder="Post Author..." name="author" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Post Tag</label>
-                        <input class="form-control text-dark" type="text" placeholder="Post Tag..." name="tag" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Post Image: </label>
-                        <input type="file" name="image" required>
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary mb-3 btn-lg btn-block text-dark">Add Post</button>
-
-
-
-                </form>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.html -->
@@ -108,24 +106,6 @@
 <!-- container-scroller -->
 
 @include('admin.js')
-
-<!-- Ckeditor -->
-
-
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#editor' ),
-            {
-                ckfinder:
-                    {
-                        uploadUrl:"{{route('ckeditor.upload',['_token'=>csrf_token()])}}",
-                    }
-            }
-        )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
 
 </body>
 

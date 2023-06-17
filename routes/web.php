@@ -72,6 +72,18 @@ Route::post('ckeditor/upload', [AdminController::class, 'upload'])->name('ckedit
 
 Route::post('/create_post', [AdminController::class, 'create_post']);
 
+Route::get('/all_posts', [AdminController::class, 'all_posts']);
+
+Route::get('/update_post/{id}', [AdminController::class, 'update_post']);
+
+Route::post('/edit_post/{id}', [AdminController::class, 'edit_post']);
+
+Route::get('/delete_post/{id}', [AdminController::class, 'delete_post']);
+
+Route::get('/publish_post/{id}', [AdminController::class, 'publish_post']);
+
+Route::get('/unpublish_post/{id}', [AdminController::class, 'unpublish_post']);
+
 
 
 
@@ -83,6 +95,12 @@ Route::get('/services', [HomeController::class, 'services']);
 Route::get('/cars', [HomeController::class, 'cars']);
 
 Route::get('/blog', [HomeController::class, 'blog']);
+
+Route::get('/blog_details/{id}', [HomeController::class, 'blog_details']);
+
+Route::post('/add_comment/{id}', [HomeController::class, 'add_comment']);
+
+Route::post('/reply_comment', [HomeController::class, 'reply_comment']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
 

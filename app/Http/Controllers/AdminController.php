@@ -220,16 +220,15 @@ class AdminController extends Controller
 
 
 
-            $request->file('upload')->move(public_path('post_images'), $fileName);
+            $request->file('upload')->move(public_path('media'), $fileName);
 
 
 
-            $url = asset('post_images/' . $fileName);
+            $url = asset('media/' . $fileName);
 
 
 
             return response()->json(['fileName' => $fileName, 'uploaded'=> 1, 'url' => $url]);
-
         }
     }
 
@@ -245,12 +244,75 @@ class AdminController extends Controller
         $image = $request->image;
 
         $imageName = time().'.'. $image->getClientOriginalExtension();
-        $request->image->move('post_images', $imageName);
+        $request->image->move('media', $imageName);
         $post->image = $imageName;
 
         $post->save();
 
-        return redirect()->back()->with('message','Post create successfully');
+        return redirect()->back()->with('message','Post created successfully');
 
+    }
+
+    public function all_posts()
+    {
+        $post = post::all();
+        return view('admin.allPosts', compact('post'));
+    }
+
+    public function update_post($id)
+    {
+        $post = post::find($id);
+        return view('admin.updatePost', compact('post'));
+    }
+
+    public function edit_post(Request $request, $id)
+    {
+        $post = post::find($id);
+
+        $post->title = $request->title;
+
+        $post->details = $request->details;
+
+        $post->author = $request->author;
+
+        $post->tag = $request->tag;
+
+        $image = $request->image;
+
+        if ($image)
+        {
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+
+            $request->image->move('media', $imagename);
+
+            $post->image = $imagename;
+        }
+
+        $post->save();
+
+        return redirect()->back()->with('message','Post updated successfully');
+    }
+
+    public function delete_post($id)
+    {
+        $post = post::find($id);
+        $post->delete();
+        return redirect()->back()->with('message','Post deleted successfully');
+    }
+
+    public function publish_post($id)
+    {
+        $post = post::find($id);
+        $post->tag = 'Published';
+        $post->save();
+        return redirect()->back();
+    }
+
+    public function unpublish_post($id)
+    {
+        $post = post::find($id);
+        $post->tag = 'unpublished';
+        $post->save();
+        return redirect()->back();
     }
 }

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Bookings;
 use App\Models\Car;
 use App\Models\CarType;
+use App\Models\Comment;
 use App\Models\Order;
+use App\Models\Post;
+use App\Models\Reply;
 use App\Models\Reservations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +54,65 @@ class HomeController extends Controller
 
     public function blog()
     {
-        return view('home.blog');
+        $post = post::all();
+        return view('home.blog', compact('post'));
+    }
+
+    public function blog_details($id)
+    {
+        $post = post::find($id);
+        $posts = post::all();
+        $comment = comment::orderBy('id','desc')->get();
+        $reply = reply::orderBy('id','desc')->get();
+        return view('home.blogDetails', compact('post','posts','comment','reply'));
+    }
+
+    public function add_comment(Request $request, $id)
+    {
+        if (Auth::id())
+        {
+            $comment = new comment;
+
+            $comment->name = Auth::user()->name;
+
+            $comment->user_id = Auth::user()->id;
+
+            $comment->post_id = $id;
+
+            $comment->comment = $request->comment;
+
+            $comment->save();
+
+            return redirect()->back();
+        }
+        else
+        {
+            return redirect('login');
+        }
+    }
+
+    public function reply_comment(Request $request)
+    {
+        if (Auth::user())
+        {
+            $reply = new reply;
+
+            $reply->user_id = Auth::user()->id;
+
+            $reply->name = Auth::user()->name;
+
+            $reply->comment_id = $request->commentId;
+
+            $reply->reply = $request->reply;
+
+            $reply->save();
+
+            return redirect()->back();
+        }
+        else
+        {
+            return redirect('login');
+        }
     }
 
     public function contact()

@@ -57,44 +57,48 @@
                     </div>
                 @endif
 
-                <h1 class="text-center">Add post</h1>
+                    <h1 class="text-center">Edit post</h1>
 
-                <form action="{{ url('create_post') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('edit_post',$post->id) }}" method="post" enctype="multipart/form-data">
 
-                    @csrf
+                        @csrf
 
-                    <div class="mb-3">
-                        <label>Post title</label>
-                        <input class="form-control text-dark" type="text"  placeholder="Post Title..." name="title"  required>
-                    </div>
+                        <div class="mb-3">
+                            <label>Post title</label>
+                            <input class="form-control text-dark" type="text"  placeholder="Post Title..." name="title"  required value="{{ $post->title }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label>Post Details</label>
-                        <textarea class="form-control text-dark" id="#" rows="20" cols="30"  placeholder="Post Details..." name="details"  required></textarea>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label>Post Author</label>
-                        <input class="form-control text-dark" type="text" placeholder="Post Author..." name="author" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Post Tag</label>
-                        <input class="form-control text-dark" type="text" placeholder="Post Tag..." name="tag" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Post Image: </label>
-                        <input type="file" name="image" required>
-                    </div>
+                        <div class="mb-3">
+                            <label>Post Details</label>
+                            <textarea class="form-control text-dark" rows="10" cols="10"  placeholder="Post Details..." name="details"  required>{{ $post->details }}</textarea>
+                        </div>
 
 
-                    <button type="submit" class="btn btn-primary mb-3 btn-lg btn-block text-dark">Add Post</button>
+                        <div class="mb-3">
+                            <label>Post Author</label>
+                            <input class="form-control text-dark" type="text" placeholder="Post Author..." name="author" required value="{{ $post->author }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Post Tag</label>
+                            <input class="form-control text-dark" type="text" placeholder="Post Tag..." name="tag" required value="{{ $post->tag }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Post Image: </label>
+                            <img src="/media/{{ $post->image }}" height="100" width="100">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Update Post Image: </label>
+                            <input type="file" name="image">
+                        </div>
 
 
+                        <button type="submit" class="btn btn-primary mb-3 btn-lg btn-block text-dark">Update Post</button>
 
-                </form>
+                    </form>
+
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.html -->
