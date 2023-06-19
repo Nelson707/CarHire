@@ -36,7 +36,7 @@
                             <div class="icon mr-3">
                                 <span class="icon-map-o"></span>
                             </div>
-                            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+                            <p><span>Address:</span>256 40204 Nairobi</p>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -44,7 +44,7 @@
                             <div class="icon mr-3">
                                 <span class="icon-mobile-phone"></span>
                             </div>
-                            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                            <p><span>Phone:</span> <a href="tel://0710517189">0710517189</a></p>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -52,24 +52,36 @@
                             <div class="icon mr-3">
                                 <span class="icon-envelope-o"></span>
                             </div>
-                            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                            <p><span>Email:</span> <a href="mailto:nelsonnebo84@gmail.com">nelsonnebo84@gmail.com</a></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8 block-9 mb-md-5">
-                <form action="#" class="bg-light p-5 contact-form">
+
+                @if(session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session()->get('message') }}
+                        <button type="button" class="close" style="float: right;" data-dismiss="alert" aria-hidden="true">X</button>
+                    </div>
+                @endif
+
+                <form action="{{url('contact_us')}}" class="bg-light p-5 contact-form" method="post">
+                    @csrf
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name">
+                        <input type="text" class="form-control" placeholder="Your Name" name="name">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Email">
+                        <input type="text" class="form-control" placeholder="Your Email" name="email">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Subject">
+                        <input type="text" class="form-control" placeholder="Your Phone" name="phone">
                     </div>
                     <div class="form-group">
-                        <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                        <input type="text" class="form-control" placeholder="Subject" name="subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
@@ -78,11 +90,7 @@
 
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div id="map" class="bg-white"></div>
-            </div>
-        </div>
+
     </div>
 </section>
 

@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use App\Models\Bookings;
 use App\Models\Car;
 use App\Models\CarType;
 use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\Order;
 use App\Models\Post;
 use App\Models\Reply;
 use App\Models\Reservations;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
+use function Symfony\Component\String\s;
 
 class HomeController extends Controller
 {
@@ -26,23 +30,35 @@ class HomeController extends Controller
         }
         else
         {
-            return view('home.index');
+            $car = Car::all();
+            $carType = CarType::all();
+            $post = post::paginate(3);
+            $about = about::all();
+            $service = service::all();
+            return view('home.index', compact('car','carType','post','about','service'));
         }
     }
 
     public function index()
     {
-        return view('home.index');
+        $car = Car::all();
+        $carType = CarType::all();
+        $post = post::paginate(3);
+        $about = about::all();
+        $service = service::all();
+        return view('home.index', compact('car','carType','post','about','service'));
     }
 
     public function about()
     {
-        return view('home.about');
+        $about = about::all();
+        return view('home.about', compact('about'));
     }
 
     public function services()
     {
-        return view('home.services');
+        $service = service::all();
+        return view('home.services', compact('service'));
     }
 
     public function cars()
@@ -54,14 +70,14 @@ class HomeController extends Controller
 
     public function blog()
     {
-        $post = post::all();
+        $post = post::paginate(3);
         return view('home.blog', compact('post'));
     }
 
     public function blog_details($id)
     {
         $post = post::find($id);
-        $posts = post::all();
+        $posts = post::paginate(5);
         $comment = comment::orderBy('id','desc')->get();
         $reply = reply::orderBy('id','desc')->get();
         return view('home.blogDetails', compact('post','posts','comment','reply'));
@@ -118,6 +134,24 @@ class HomeController extends Controller
     public function contact()
     {
         return view('home.contact');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+
+            'email' => 'required|email',
+
+            'phone' => 'required|digits:10|numeric',
+
+            'subject' => 'required',
+
+            'message' => 'required'
+        ]);
+
+        Contact::create($request->all());
+        return redirect()->back()->with('message','Thank you for contacting us. We will contact you shortly.');
     }
 
     public function book_car(Request $request)

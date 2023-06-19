@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use App\Models\Bookings;
 use App\Models\Car;
 use App\Models\CarType;
 use App\Models\Order;
 use App\Models\Post;
 use App\Models\Reservations;
+use App\Models\Service;
 use App\Notifications\SendEmailNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -314,5 +316,97 @@ class AdminController extends Controller
         $post->tag = 'unpublished';
         $post->save();
         return redirect()->back();
+    }
+
+    public function about_us()
+    {
+        return view('admin.aboutUs');
+    }
+
+    public function create_about_us(Request $request)
+    {
+        $about = new About;
+
+        $about->description = $request->description;
+
+        $about->save();
+        return redirect()->back()->with('message','About Us uploaded successfully');
+
+    }
+
+    public function view_about_us()
+    {
+        $about = about::all();
+        return view('admin.about_us', compact('about'));
+    }
+
+    public function edit_about($id)
+    {
+        $about = about::find($id);
+        return view('admin.edit_about_us', compact('about'));
+    }
+
+    public function update_about(Request $request, $id)
+    {
+        $about = about::find($id);
+
+        $about->description = $request->description;
+
+        $about->save();
+        return redirect()->back()->with('message','About Us Updated successfully');
+    }
+
+    public function delete_about($id)
+    {
+        $about = about::find($id);
+        $about->delete();
+        return redirect()->back()->with('message','About Us Deleted successfully');
+    }
+
+    public function add_service()
+    {
+        return view('admin.addService');
+    }
+
+    public function create_service(Request $request)
+    {
+        $service = new Service;
+
+        $service->name = $request->name;
+        $service->details = $request->details;
+
+        $service->save();
+        return redirect()->back()->with('message','Service Added Successfully');
+    }
+
+    public function view_services()
+    {
+        $service = service::all();
+        return view('admin.allServices', compact('service'));
+    }
+
+    public function edit_service($id)
+    {
+        $service = service::find($id);
+        return view('admin.editService', compact('service'));
+    }
+
+    public function update_service(Request $request, $id)
+    {
+        $service = service::find($id);
+
+        $service->name = $request->name;
+        $service->details = $request->details;
+
+        $service->save();
+        return redirect()->back()->with('message','Service Updated Successfully');
+    }
+
+    public function delete_service($id)
+    {
+        $service = service::find($id);
+
+        $service->delete();
+        return redirect()->back()->with('message','Service Deleted Successfully');
     }
 }

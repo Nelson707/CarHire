@@ -138,61 +138,23 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="carousel-car owl-carousel">
-                    <div class="item">
-                        <div class="car-wrap rounded ftco-animate">
-                            <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">
-                            </div>
-                            <div class="text">
-                                <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                <div class="d-flex mb-3">
-                                    <span class="cat">Cheverolet</span>
-                                    <p class="price ml-auto">$500 <span>/day</span></p>
+                    @foreach($car as $car)
+                        @if($car->passengers == '4')
+                            <div class="item">
+                                <div class="car-wrap rounded ftco-animate">
+                                    <img src="car_images/{{ $car->image }}" class="img rounded d-flex align-items-end">
                                 </div>
-                                <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="car-wrap rounded ftco-animate">
-                            <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-2.jpg);">
-                            </div>
-                            <div class="text">
-                                <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                <div class="d-flex mb-3">
-                                    <span class="cat">Cheverolet</span>
-                                    <p class="price ml-auto">$500 <span>/day</span></p>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">{{ $car->type }}</span>
+                                        <p class="price ml-auto">{{ $car->daily }} <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="{{url('/car_details', $car->id)}}" class="btn btn-secondary py-2 ml-1">View Details</a></p>
                                 </div>
-                                <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="car-wrap rounded ftco-animate">
-                            <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-3.jpg);">
-                            </div>
-                            <div class="text">
-                                <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                <div class="d-flex mb-3">
-                                    <span class="cat">Cheverolet</span>
-                                    <p class="price ml-auto">$500 <span>/day</span></p>
-                                </div>
-                                <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="car-wrap rounded ftco-animate">
-                            <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-4.jpg);">
-                            </div>
-                            <div class="text">
-                                <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                <div class="d-flex mb-3">
-                                    <span class="cat">Cheverolet</span>
-                                    <p class="price ml-auto">$500 <span>/day</span></p>
-                                </div>
-                                <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                            </div>
-                        </div>
+                        @endif
+                    @endforeach
                     </div>
                 </div>
             </div>
@@ -206,13 +168,14 @@
             <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
             </div>
             <div class="col-md-6 wrap-about ftco-animate">
+                @foreach($about as $about)
                 <div class="heading-section heading-section-white pl-md-5">
                     <span class="subheading">About us</span>
                     <h2 class="mb-4">Welcome to Carbook</h2>
 
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                    <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                    <p>{{ $about->description }}</p>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -223,46 +186,21 @@
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <span class="subheading">Services</span>
-                <h2 class="mb-3">Our Latest Services</h2>
+                <h2 class="mb-3">Our Services</h2>
             </div>
         </div>
         <div class="row">
+            @foreach($service as $service)
             <div class="col-md-3">
                 <div class="services services-2 w-100 text-center">
                     <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
                     <div class="text w-100">
-                        <h3 class="heading mb-2">Wedding Ceremony</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        <h3 class="heading mb-2">{{ $service->name }}</h3>
+                        <p>{{ Str::limit ($service->details , 150) }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">City Transfer</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">Airport Transfer</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">Whole City Tour</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -273,7 +211,7 @@
         <div class="row justify-content-end">
             <div class="col-md-6 heading-section heading-section-white ftco-animate">
                 <h2 class="mb-3">Do You Want To Earn With Us? So Don't Be Late.</h2>
-                <a href="#" class="btn btn-primary btn-lg">Become A Driver</a>
+                <a href="{{url('contact')}}" class="btn btn-primary btn-lg">Become A Driver</a>
             </div>
         </div>
     </div>
@@ -289,51 +227,22 @@
             </div>
         </div>
         <div class="row d-flex">
+            @foreach($post as $post)
             <div class="col-md-4 d-flex ftco-animate">
                 <div class="blog-entry justify-content-end">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+                    <img src="media/{{ $post->image }}" class="img rounded d-flex align-items-end">
                     </a>
                     <div class="text pt-4">
                         <div class="meta mb-3">
-                            <div><a href="#">Oct. 29, 2019</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                            <div><a href="#">{{ $post->author }}</a></div>
+                            <div><a href="#">{{ $post->created_at }}</a></div>
                         </div>
-                        <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                        <p><a href="#" class="btn btn-primary">Read more</a></p>
+                        <h3 class="heading mt-2"><a href="{{url('blog_details', $post->id)}}">{{$post->title}}</a></h3>
+                        <p><a href="{{url('blog_details', $post->id)}}" class="btn btn-primary">Read more</a></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry justify-content-end">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-                    </a>
-                    <div class="text pt-4">
-                        <div class="meta mb-3">
-                            <div><a href="#">Oct. 29, 2019</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                        <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                        <p><a href="#" class="btn btn-primary">Read more</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-                    </a>
-                    <div class="text pt-4">
-                        <div class="meta mb-3">
-                            <div><a href="#">Oct. 29, 2019</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                        <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                        <p><a href="#" class="btn btn-primary">Read more</a></p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>

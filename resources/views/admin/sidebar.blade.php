@@ -58,27 +58,28 @@
 
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i class="icon-head menu-icon"></i>
-                <span class="menu-title">User Pages</span>
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">About Us</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('about_us')}}">Add About Us</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('view_about_us')}}">View About Us</a></li>
                 </ul>
             </div>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-                <i class="icon-ban menu-icon"></i>
-                <span class="menu-title">Error pages</span>
+                <i class="icon-server menu-icon"></i>
+                <span class="menu-title">Services</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="error">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('add_service')}}">Add Service</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{url('view_services')}}">View Services</a></li>
                 </ul>
             </div>
         </li>

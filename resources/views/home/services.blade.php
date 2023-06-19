@@ -35,42 +35,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">Wedding Ceremony</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+            @foreach($service as $service)
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">{{ $service->name }}</h3>
+                            <p>{{ Str::limit ($service->details , 150) }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">City Transfer</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">Airport Transfer</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">Whole City Tour</h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+        </div>
+        <div class="mt-3">
+            <a href="{{url('contact')}}" class="btn btn-primary btn-lg">Get a Quote</a>
         </div>
     </div>
 </section>
@@ -81,7 +59,7 @@
         <div class="row justify-content-end">
             <div class="col-md-6 heading-section heading-section-white ftco-animate">
                 <h2 class="mb-3">Do You Want To Earn With Us? So Don't Be Late.</h2>
-                <a href="#" class="btn btn-primary btn-lg">Become A Driver</a>
+                <a href="{{url('contact')}}" class="btn btn-primary btn-lg">Become A Driver</a>
             </div>
         </div>
     </div>

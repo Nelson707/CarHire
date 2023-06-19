@@ -67,7 +67,6 @@ Route::post('/send_booking_email/{id}', [AdminController::class, 'send_booking_e
 
 Route::get('/add_post', [AdminController::class, 'add_post']);
 
-
 Route::post('ckeditor/upload', [AdminController::class, 'upload'])->name('ckeditor.upload');
 
 Route::post('/create_post', [AdminController::class, 'create_post']);
@@ -83,6 +82,30 @@ Route::get('/delete_post/{id}', [AdminController::class, 'delete_post']);
 Route::get('/publish_post/{id}', [AdminController::class, 'publish_post']);
 
 Route::get('/unpublish_post/{id}', [AdminController::class, 'unpublish_post']);
+
+Route::get('/about_us', [AdminController::class, 'about_us']);
+
+Route::post('/create_about_us', [AdminController::class, 'create_about_us']);
+
+Route::get('/view_about_us', [AdminController::class, 'view_about_us']);
+
+Route::get('/edit_about/{id}', [AdminController::class, 'edit_about']);
+
+Route::post('/update_about/{id}', [AdminController::class, 'update_about']);
+
+Route::get('/delete_about/{id}', [AdminController::class, 'delete_about']);
+
+Route::get('/add_service', [AdminController::class, 'add_service']);
+
+Route::post('/create_service', [AdminController::class, 'create_service']);
+
+Route::get('/view_services', [AdminController::class, 'view_services']);
+
+Route::get('/edit_service/{id}', [AdminController::class, 'edit_service']);
+
+Route::post('/update_service/{id}', [AdminController::class, 'update_service']);
+
+Route::get('/delete_service/{id}', [AdminController::class, 'delete_service']);
 
 
 
@@ -103,6 +126,8 @@ Route::post('/add_comment/{id}', [HomeController::class, 'add_comment']);
 Route::post('/reply_comment', [HomeController::class, 'reply_comment']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
+
+Route::post('contact_us', [HomeController::class, 'store'])->name('contact.us.store');
 
 Route::post('/book_car', [HomeController::class, 'book_car']);
 
