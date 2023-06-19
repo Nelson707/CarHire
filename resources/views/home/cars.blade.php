@@ -29,16 +29,23 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
+
+        <div class="mb-5">
+            <form action="{{url('search_car')}}" method="get">
+                <input type="text" name="search" class="form-control" id="navbar-search-input" placeholder="Search Car" aria-label="search" aria-describedby="search">
+            </form>
+        </div>
+
         <div class="row">
             @foreach($car as $car)
             <div class="col-md-4">
                 <div class="car-wrap rounded ftco-animate">
                     <img src="car_images/{{ $car->image }}" class="img rounded d-flex align-items-end">
                     <div class="text">
-                        <h2 class="mb-0"><a href="car-single.html">{{ $car->name }}</a></h2>
+                        <h2 class="mb-0">{{ $car->name }}</h2>
                         <div class="d-flex mb-3">
-                            <span class="cat">{{ $car->type }}</span>
-                            <p class="price ml-auto">Ksh. {{ $car->daily }}<span>/day</span></p>
+                            <span class="cat text-dark">{{ $car->type }}</span>
+                            <p class="price ml-auto">Ksh. {{ $car->daily }}<span class="text-dark">/day</span></p>
                         </div>
                         <p class="d-flex mb-0 d-block"><a href="{{url('/car_details', $car->id)}}" class="btn btn-secondary py-2 ml-1">View Details</a></p>
                     </div>
@@ -46,21 +53,7 @@
             </div>
             @endforeach
         </div>
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
     </div>
 </section>
 

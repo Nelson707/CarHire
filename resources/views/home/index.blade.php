@@ -22,7 +22,7 @@
                 <div class="text w-100 text-center mb-md-5 pb-md-5">
                     <h1 class="mb-4">Fast &amp; Easy Way To Rent A Car</h1>
                     <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts</p>
-                    <a href="https://vimeo.com/45830194" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
+                    <a href="https://www.youtube.com/watch?v=0wNuz8kLBwc" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
                         <div class="icon d-flex align-items-center justify-content-center">
                             <span class="ion-ios-play"></span>
                         </div>
@@ -145,20 +145,20 @@
                                     <img src="car_images/{{ $car->image }}" class="img rounded d-flex align-items-end">
                                 </div>
                                 <div class="text">
-                                    <h2 class="mb-0"><a href="#">{{ $car->name }}</a></h2>
+                                    <h2 class="mb-0 h5">{{ $car->name }}</h2>
                                     <div class="d-flex mb-3">
-                                        <span class="cat">{{ $car->type }}</span>
-                                        <p class="price ml-auto">{{ $car->daily }} <span>/day</span></p>
+                                        <span class="cat text-dark">{{ $car->type }}</span>
+                                        <p class="price ml-auto text-primary">{{ $car->daily }} <span>/day</span></p>
                                     </div>
                                     <p class="d-flex mb-0 d-block"><a href="{{url('/car_details', $car->id)}}" class="btn btn-secondary py-2 ml-1">View Details</a></p>
                                 </div>
                             </div>
                         @endif
                     @endforeach
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 
@@ -169,12 +169,12 @@
             </div>
             <div class="col-md-6 wrap-about ftco-animate">
                 @foreach($about as $about)
-                <div class="heading-section heading-section-white pl-md-5">
-                    <span class="subheading">About us</span>
-                    <h2 class="mb-4">Welcome to Carbook</h2>
+                    <div class="heading-section heading-section-white pl-md-5">
+                        <span class="subheading">About us</span>
+                        <h2 class="mb-4">Welcome to Carbook</h2>
 
-                    <p>{{ $about->description }}</p>
-                </div>
+                        <p>{{ $about->description }}</p>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -191,15 +191,15 @@
         </div>
         <div class="row">
             @foreach($service as $service)
-            <div class="col-md-3">
-                <div class="services services-2 w-100 text-center">
-                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
-                    <div class="text w-100">
-                        <h3 class="heading mb-2">{{ $service->name }}</h3>
-                        <p>{{ Str::limit ($service->details , 150) }}</p>
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">{{ $service->name }}</h3>
+                            <p>{{ Str::limit ($service->details , 150) }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>
@@ -228,20 +228,19 @@
         </div>
         <div class="row d-flex">
             @foreach($post as $post)
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry justify-content-end">
-                    <img src="media/{{ $post->image }}" class="img rounded d-flex align-items-end">
-                    </a>
-                    <div class="text pt-4">
-                        <div class="meta mb-3">
-                            <div><a href="#">{{ $post->author }}</a></div>
-                            <div><a href="#">{{ $post->created_at }}</a></div>
+                <div class="col-md-4 d-flex ftco-animate">
+                    <div class="blog-entry justify-content-end">
+                        <img src="media/{{ $post->image }}" class="img rounded d-flex align-items-end" height="300" width="400">
+                        <div class="text pt-4">
+                            <div class="meta mb-3">
+                                <div><a href="#">{{ $post->author }}</a></div>
+                                <div><a href="#">{{ $post->created_at }}</a></div>
+                            </div>
+                            <h3 class="heading mt-2"><a href="{{url('blog_details', $post->id)}}">{{$post->title}}</a></h3>
+                            <p><a href="{{url('blog_details', $post->id)}}" class="btn btn-primary">Read more</a></p>
                         </div>
-                        <h3 class="heading mt-2"><a href="{{url('blog_details', $post->id)}}">{{$post->title}}</a></h3>
-                        <p><a href="{{url('blog_details', $post->id)}}" class="btn btn-primary">Read more</a></p>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>

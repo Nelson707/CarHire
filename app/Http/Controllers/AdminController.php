@@ -13,6 +13,7 @@ use App\Models\Service;
 use App\Notifications\SendEmailNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
@@ -46,25 +47,32 @@ class AdminController extends Controller
 
     public function create_car(Request $request)
     {
-        $car = new Car;
+        if(Auth::id())
+        {
+            $car = new Car;
 
-        $car->name = $request->car_name;
-        $car->details = $request->car_details;
-        $car->passengers = $request->passenger_count;
-        $car->hourly = $request->hour_rate;
-        $car->daily = $request->daily_rate;
-        $car->leasing = $request->lease_rate;
-        $car->type = $request->car_type;
+            $car->name = $request->car_name;
+            $car->details = $request->car_details;
+            $car->passengers = $request->passenger_count;
+            $car->hourly = $request->hour_rate;
+            $car->daily = $request->daily_rate;
+            $car->leasing = $request->lease_rate;
+            $car->type = $request->car_type;
 
-        $image = $request->image;
+            $image = $request->image;
 
-        $imageName = time().'.'. $image->getClientOriginalExtension();
-        $request->image->move('car_images', $imageName);
-        $car->image = $imageName;
+            $imageName = time().'.'. $image->getClientOriginalExtension();
+            $request->image->move('car_images', $imageName);
+            $car->image = $imageName;
 
-        $car->save();
+            $car->save();
 
-        return redirect()->back()->with('message','Car added successfully');
+            return redirect()->back()->with('message','Car added successfully');
+        }
+        else
+        {
+            redirect('login');
+        }
 
     }
 
@@ -408,5 +416,45 @@ class AdminController extends Controller
 
         $service->delete();
         return redirect()->back()->with('message','Service Deleted Successfully');
+    }
+
+    public function search_cars(Request $request)
+    {
+        $searchText = $request->search;
+        $car = car::where('name','LIKE',"%$searchText%")->orWhere('details','LIKE',"%$searchText%")->orWhere('type','LIKE',"%$searchText%")->orWhere('passengers','LIKE',"%$searchText%")->get();
+
+        return view('admin.allCars', compact('car'));
+    }
+
+    public function search_bookings(Request $request)
+    {
+        $searchText = $request->search;
+        $book = bookings::where('name','LIKE',"%$searchText%")->orWhere('email','LIKE',"%$searchText%")->orWhere('phone','LIKE',"%$searchText%")->orWhere('pick_up_location','LIKE',"%$searchText%")->orWhere('drop_off_location','LIKE',"%$searchText%")->get();
+
+        return view('admin.bookings', compact('book'));
+    }
+
+    public function search_orders(Request $request)
+    {
+        $searchText = $request->search;
+        $order = order::where('name','LIKE',"%$searchText%")->orWhere('email','LIKE',"%$searchText%")->orWhere('phone','LIKE',"%$searchText%")->orWhere('car_name','LIKE',"%$searchText%")->get();
+
+        return view('admin.reservations', compact('order'));
+    }
+
+    public function search_posts(Request $request)
+    {
+        $searchText = $request->search;
+        $post = post::where('title','LIKE',"%$searchText%")->orWhere('details','LIKE',"%$searchText%")->orWhere('author','LIKE',"%$searchText%")->orWhere('tag','LIKE',"%$searchText%")->get();
+
+        return view('admin.allPosts', compact('post'));
+    }
+
+    public function search_services(Request $request)
+    {
+        $searchText = $request->search;
+        $service = service::where('name','LIKE',"%$searchText%")->orWhere('details','LIKE',"%$searchText%")->get();
+
+        return view('admin.allServices', compact('service'));
     }
 }

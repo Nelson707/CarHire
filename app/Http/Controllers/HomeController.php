@@ -26,7 +26,12 @@ class HomeController extends Controller
         $role = Auth::user()->role;
         if ($role == '1')
         {
-            return view('admin.dashboard');
+            $total_cars = car::all()->count();
+            $total_bookings = bookings::all()->count();
+            $total_orders = order::all()->count();
+            $total_posts = post::all()->count();
+            $total_services = service::all()->count();
+            return view('admin.dashboard', compact('total_cars','total_bookings','total_orders','total_posts','total_services'));
         }
         else
         {
@@ -194,8 +199,15 @@ class HomeController extends Controller
 
     public function reserve_car($id)
     {
-        $car = Car::find($id);
-        return view('home.reserveCar', compact('car'));
+        if(Auth::id())
+        {
+            $car = Car::find($id);
+            return view('home.reserveCar', compact('car'));
+        }
+        else
+        {
+            return redirect ('login');
+        }
     }
 
     public function checkout()
@@ -377,5 +389,13 @@ class HomeController extends Controller
         Session::flash('success', 'Payment successful!');
 
         return back();
+    }
+
+    public function search_car(Request $request)
+    {
+        $searchText = $request->search;
+        $car = car::where('name','LIKE',"%$searchText%")->orWhere('details','LIKE',"%$searchText%")->orWhere('type','LIKE',"%$searchText%")->get();
+
+        return view('home.cars', compact('car'));
     }
 }

@@ -107,6 +107,16 @@ Route::post('/update_service/{id}', [AdminController::class, 'update_service']);
 
 Route::get('/delete_service/{id}', [AdminController::class, 'delete_service']);
 
+Route::get('/search_cars', [AdminController::class, 'search_cars']);
+
+Route::get('/search_bookings', [AdminController::class, 'search_bookings']);
+
+Route::get('/search_orders', [AdminController::class, 'search_orders']);
+
+Route::get('/search_posts', [AdminController::class, 'search_posts']);
+
+Route::get('/search_services', [AdminController::class, 'search_services']);
+
 
 
 
@@ -152,3 +162,5 @@ Route::get('/cancel_booking/{id}', [HomeController::class, 'cancel_booking']);
 Route::get('/stripe/{totalPrice}', [HomeController::class, 'stripe']);
 
 Route::post('stripe/{totalPrice}', [HomeController::class, 'stripePost'])->name('stripe.post');
+
+Route::get('/search_car', [HomeController::class, 'search_car']);
