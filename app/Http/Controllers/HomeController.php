@@ -31,7 +31,8 @@ class HomeController extends Controller
             $total_orders = order::all()->count();
             $total_posts = post::all()->count();
             $total_services = service::all()->count();
-            return view('admin.dashboard', compact('total_cars','total_bookings','total_orders','total_posts','total_services'));
+            $total_messages = contact::all()->count();
+            return view('admin.dashboard', compact('total_cars','total_bookings','total_orders','total_posts','total_services','total_messages'));
         }
         else
         {

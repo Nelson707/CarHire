@@ -83,6 +83,14 @@
                 </ul>
             </div>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/received_messages')}}">
+                <i class="icon-mail menu-icon"></i>
+                <span class="menu-title">Inbox</span>
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="pages/documentation/documentation.html">
                 <i class="icon-paper menu-icon"></i>

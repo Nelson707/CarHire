@@ -117,6 +117,12 @@ Route::get('/search_posts', [AdminController::class, 'search_posts']);
 
 Route::get('/search_services', [AdminController::class, 'search_services']);
 
+Route::get('/received_messages', [AdminController::class, 'received_messages']);
+
+Route::get('/search_messages', [AdminController::class, 'search_messages']);
+
+Route::get('/delete_message/{id}', [AdminController::class, 'delete_message']);
+
 
 
 

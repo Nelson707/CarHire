@@ -6,6 +6,7 @@ use App\Models\About;
 use App\Models\Bookings;
 use App\Models\Car;
 use App\Models\CarType;
+use App\Models\Contact;
 use App\Models\Order;
 use App\Models\Post;
 use App\Models\Reservations;
@@ -456,5 +457,26 @@ class AdminController extends Controller
         $service = service::where('name','LIKE',"%$searchText%")->orWhere('details','LIKE',"%$searchText%")->get();
 
         return view('admin.allServices', compact('service'));
+    }
+
+    public function received_messages()
+    {
+        $contact = contact::all();
+        return view('admin.inbox', compact('contact'));
+    }
+
+    public function search_messages(Request $request)
+    {
+        $searchText = $request->search;
+        $contact = contact::where('name','LIKE',"%$searchText%")->orWhere('email','LIKE',"%$searchText%")->orWhere('phone','LIKE',"%$searchText%")->orWhere('message','LIKE',"%$searchText%")->get();
+
+        return view('admin.inbox', compact('contact'));
+    }
+
+    public function delete_message($id)
+    {
+        $contact = contact::find($id);
+        $contact->delete();
+        return redirect()->back()->with('message','Message Deleted Successfully');
     }
 }

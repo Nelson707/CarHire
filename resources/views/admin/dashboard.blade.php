@@ -101,6 +101,15 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-4 mb-4  transparent">
+                                <div class="card card-light-danger">
+                                    <div class="card-body">
+                                        <p class="mb-4">Total Messages</p>
+                                        <p class="fs-30 mb-2">{{ $total_messages }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
